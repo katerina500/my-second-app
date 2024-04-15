@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { Link, Routes, Route } from 'react-router-dom';
+import News from './News/News';
+import Sport from './Sport/Sport';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>TheGuardian</h1>
+      <div className='router-nav-container'>
+        <nav className='navigation-menu'>
+          <div>
+            <Link to="/news">Новости</Link>
+          </div>
+          <div>
+            <Link to="/sport">Спорт</Link>
+          </div>
+        </nav>
+      </div>
+    <Routes>
+      <Route path='/news' element={<News />} />
+      <Route path='/sport' element={<Sport />} />
+    </Routes>
     </div>
   );
 }
-
-export default App;
