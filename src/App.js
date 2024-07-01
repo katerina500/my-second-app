@@ -1,26 +1,15 @@
 import './App.css';
-import { Link, Routes, Route } from 'react-router-dom';
 import News from './News/News';
-import Sport from './Sport/Sport';
 
 export default function App() {
   return (
     <div className="App">
-      <h1>TheGuardian</h1>
-      <div className='router-nav-container'>
-        <nav className='navigation-menu'>
-          <div>
-            <Link to="/news">Новости</Link>
-          </div>
-          <div>
-            <Link to="/sport">Спорт</Link>
-          </div>
-        </nav>
-      </div>
-    <Routes>
-      <Route path='/news' element={<News />} />
-      <Route path='/sport' element={<Sport />} />
-    </Routes>
+     <div className='container'>
+     <h1>Получите самые свежие новости от газеты</h1>
+     <span className='header'>The Guardian</span>
+     <h2>Укажите ключевое слово и наслаждайтесь.</h2>
+    </div>
+    <div> <News /> </div>
     </div>
   );
 }

@@ -1,29 +1,41 @@
-import { useEffect } from "react";
 import React, {useState} from 'react';
+import './News.css';
 
 const News = () => {
-    const [dataFromApi, setDataFromApi] = useState([])
 
-    useEffect(() => {
-        fetch("https://www.theguardian.com/international")
-        .then((result) => result.json())
-        .then((data) => setDataFromApi(data.splice(1, 15)));
-}, [] );
+    const [posts, setPosts] = useState([]);
+    const [input, setInput] = useState();
 
-    return(
-        <div className='news-page-container'>
-            <p className="news-page-container__head-text">News</p>
-            {dataFromApi.map((el, index) => {
-                return (
-                    <div key={index + el.id} className='news-page-container__item-container' >
-                        <div>{JSON.stringify(el)}</div>
-                        <h3 className='item-container__item-head'>{el.title}</h3>
-                        <div className='item-container__item-body'>{el.body}</div>
-                    </div>
-                );
-            })}
+
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      fetch('https://content.guardianapis.com/search?q='+encodeURIComponent(input)+'&api-key=0ec2031f-4ccb-4260-b988-701355e6bbb5')
+      .then((data) => data.json())
+      .then((res) => {
+        console.log(res);
+        setPosts(res.response.results);
+      });
+    }
+
+
+  return (  
+   <div className='body'>
+     <form className='form'>
+      <lable className="lable">Введите интересующую тему: </lable>
+      <input value={input} className="newsInput" onChange={e => setInput(e.target.value)} type="text" /> <br />
+      <button class="button" onClick={handleSubmit}>Получить список статей</button>
+     </form>
+     <div class="inform">
+      {posts.map((el, i) => {
+        return(
+        <div key={i}>
+          <a href={el.webUrl}>{el.webTitle}</a>
         </div>
-    );
-};
+        );
+      })}
+     </div>
+   </div>
+  );
+}
 
 export default News;
